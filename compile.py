@@ -3,9 +3,8 @@ import os
 import time
 import shutil
 #create object dir
+from cfg import *
 
-runcommand="./Env/prod/OSX/main.app/Contents/MacOS/Game"
-OS="OSX"
 
 
 def init():

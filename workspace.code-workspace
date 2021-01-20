@@ -5,7 +5,7 @@
 			"name": "QuarLife Workspace",
 		},
 		{
-			"path": "src/Engine",
+			"path": "src/Engine/main",
 			"name": "Game Engine (SRC, C++)"
 		},
 		{
@@ -24,5 +24,20 @@
 	],
 	"settings": {
 		"files.autoSave": "afterDelay",
+		"d.alwaysShowCoverageStatus": true,
+		"files.exclude": {
+			"Dpart/.dub": true,
+			"src":true,
+			"Env":true,
+	
+		},
+		"[cpp]": {
+			"editor.wordBasedSuggestions": true,
+			"editor.suggest.insertMode": "replace",
+			"editor.semanticHighlighting.enabled": true
+		},
+	},
+	"extensions": {
+		"recommendations": ["webfreak.code-d","ms-vscode.cpptools","ms-python.vscode-pylance"]
 	},
 }
