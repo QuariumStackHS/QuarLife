@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "QuarLife Workspace",
+		},
+		{
+			"path": "src/Engine",
+			"name": "Game Engine (SRC, C++)"
+		},
+		{
+			"path": "src/Dpart",
+			"name": "Game Lib (SRC, D)"
+		},
+		{
+			"path": "src/WEB",
+			"name": "WEB (SRC, Python)"
+		},
+		{
+			"path": "Env/prod",
+			"name":"Compiled Game"
+
+		}
+	],
+	"settings": {
+		"files.autoSave": "afterDelay",
+	},
+}

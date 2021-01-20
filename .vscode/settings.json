@@ -1,0 +1,8 @@
+{
+    "files.exclude": {
+        "Dpart/.dub": true,
+        "src":true,
+        "Env":true,
+
+    }
+}

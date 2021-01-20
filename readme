@@ -1,0 +1,5 @@
+1: game engine:
+    display texture at coords
+    *abstract handle user input
+2: game LIB (quarp):
+    contain code for the Game (Registry blocks items entity)
