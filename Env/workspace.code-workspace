@@ -48,14 +48,5 @@
 		"anderseandersen.html-class-suggestions",
 		"fabiospampinato.vscode-install-vsix"
 	],
-},
-
-"recommendations": [
-	"webfreak.code-d",
-	"ms-vscode.cpptools",
-	"ms-python.vscode-pylance",
-	"icrawl.discord-vscode",
-	"anderseandersen.html-class-suggestions",
-	
-]
+}
 }
