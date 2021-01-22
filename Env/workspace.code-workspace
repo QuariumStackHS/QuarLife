@@ -1,25 +1,24 @@
 {
 	"folders": [
 		{
-			"path": ".",
 			"name": "QuarLife Workspace",
+			"path": ".."
 		},
 		{
-			"path": "src/Engine/main",
-			"name": "Game Engine (SRC, C++)"
+			"name": "Game Engine (SRC, C++)",
+			"path": "../src/Engine/main"
 		},
 		{
-			"path": "src/Dpart",
-			"name": "Game Lib (SRC, D)"
+			"name": "Game Lib (SRC, D)",
+			"path": "../src/Dpart"
 		},
 		{
-			"path": "src/WEB",
-			"name": "WEB (SRC, Python)"
+			"name": "WEB (SRC, Python)",
+			"path": "../src/WEB"
 		},
 		{
-			"path": "Env/prod",
-			"name":"Compiled Game"
-
+			"name": "Compiled Game",
+			"path": "prod"
 		}
 	],
 	"settings": {
@@ -29,7 +28,9 @@
 		"files.exclude": {
 			"Dpart/.dub": true,
 			"src":true,
-			"Env":true,
+			"Env":false,
+			"Env/prod":true,
+			"workspace.code-workspace":false,
 	
 		},
 		"[cpp]": {
