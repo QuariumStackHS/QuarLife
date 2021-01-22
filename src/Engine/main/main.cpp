@@ -5,6 +5,7 @@
 //#pragma startup Initialize
 //#pragma exit Post
 void Post(){
+    std::cout<<"SDL Quit"<<std::endl;
     SDL_Quit();
 }
 void Initialize(){
@@ -14,7 +15,7 @@ void Initialize(){
     else{
         std::cout<<"Error SDL Could not be Initialized"<<std::endl;
     }
-    SDL_SetVideoMode(640, 480, 0,SDL_DOUBLEBUF|SDL_FULLSCREEN);
+    SDL_SetVideoMode(1920, 1080, 0,SDL_DOUBLEBUF|SDL_FULLSCREEN);
 
 
 }
