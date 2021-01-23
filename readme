@@ -1,5 +1,8 @@
 1: game engine:
     display texture at coords
     *abstract handle user input
+    
+    https://libsdl.org/download-1.2.php
+    https://www.libsdl.org/release/SDL-1.2.15/docs/
 2: game LIB (quarp):
     contain code for the Game (Registry blocks items entity)
