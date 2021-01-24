@@ -33,11 +33,12 @@ def clean(arg):
 
 def compile(Part: str):
     if Part == "Dpart":
-        print(f"{bcolors.HEADER}compiling Dpart...\n{bcolors.ENDC}")
+        print(f"{bcolors.HEADER}compiling Dpart...\n{bcolors.BOLD}")
         SC = os.getcwd()
         os.chdir("src/Dpart")
         os.system("dub")
         os.chdir(SC)
+        print(bcolors.ENDC,end="")
         if os.path.exists(f"src/Dpart/{Libquarp}"):
             print(
                 f"{bcolors.OKGREEN}---compiled Dpart succesfuly!---{bcolors.ENDC}\n")
@@ -47,7 +48,7 @@ def compile(Part: str):
             exit()
 
     elif Part == "Engine":
-        print(f"{bcolors.HEADER}compiling Engine...\n{bcolors.ENDC}")
+        print(f"{bcolors.HEADER}compiling Engine...\n{bcolors.BOLD}")
         os.system(
             f"g++ -Isrc/Engine/main/Includes -Isrc/Dpart/Headers -I{SDLFullPath}/include -pthread src/Engine/main/main.cpp -c -o Env/prod/{OS}/object/Engine.o")
         if os.path.exists(f"Env/prod/{OS}/object/Engine.o"):

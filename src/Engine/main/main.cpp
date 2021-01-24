@@ -1,6 +1,7 @@
-
-
-//using namespace std;
+#include "include/SDL.h"
+#include <iostream>
+sdf
+//using namespace std;v
 //#pragma startup Initialize
 //#pragma exit Post
 void Post(){
