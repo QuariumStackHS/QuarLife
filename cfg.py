@@ -6,13 +6,17 @@
 Win64="Win64"
 Linux="Linux"
 OSX="OSX"
-#Engine Dependancy
-Libquarp="libquarp.a"
-ServerCore="dserver"
+#Engine & ServerCore Dependancy
 
 SDLVersion="2-2.0.14"
 SDLPath="Deps/SDL"
 SDLFullPath=SDLPath+SDLVersion
+
+Libquarp="libquarp.a"
+#ServerCore 
+ServerCore="dserver"
+
+
 #Engine 
 
 OS=OSX

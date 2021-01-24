@@ -13,16 +13,16 @@
 			"path": "../src/Dpart"
 		},
 		{
-			"name": "WEB (SRC, Python)",
-			"path": "../src/WEB"
+			"name": "Server Core (SRC, D)",
+			"path": "../src/Server"
 		},
 		{
 			"name": "Compiled Game",
 			"path": "prod"
 		},
 		{
-			"name": "Server Core",
-			"path": "../src/Server"
+			"name": "WEB (SRC, Python)",
+			"path": "../src/WEB"
 		}
 	],
 

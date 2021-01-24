@@ -5,6 +5,7 @@ import shutil
 # create object dir
 from cfg import *
 
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -23,17 +24,19 @@ def init(arg):
 
 
 def clean(arg):
-    print("\ncleaning Workspace")
-    shutil.rmtree("src/Dpart/.dub")
-    shutil.copyfile(f"src/Dpart/{Libquarp}",
-                    f"Env/prod/{OS}/object/{Libquarp}")
-    os.remove(f"src/Dpart/{Libquarp}")
-    
-    shutil.rmtree("src/Server/.dub")
-    shutil.copyfile(f"src/Server/{ServerCore}",
-                    f"Env/prod/{OS}/{ServerCore}")
-    os.remove(f"src/Dpart/{ServerCore}")
+    try:
+        print("\ncleaning Workspace")
+        shutil.rmtree("src/Dpart/.dub")
+        shutil.copyfile(f"src/Dpart/{Libquarp}",
+                        f"Env/prod/{OS}/object/{Libquarp}")
+        os.remove(f"src/Dpart/{Libquarp}")
 
+        shutil.rmtree("src/Server/.dub")
+        shutil.copyfile(f"src/Server/{ServerCore}",
+                        f"Env/prod/{OS}/{ServerCore}")
+        os.remove(f"src/Server/{ServerCore}")
+    except:
+        pass
 
 def compile(Part: str):
     if Part == "Dpart":
@@ -42,7 +45,7 @@ def compile(Part: str):
         os.chdir("src/Dpart")
         os.system("dub")
         os.chdir(SC)
-        print(bcolors.ENDC,end="")
+        print(bcolors.ENDC, end="")
         if os.path.exists(f"src/Dpart/{Libquarp}"):
             print(
                 f"{bcolors.OKGREEN}---compiled Dpart succesfuly!---{bcolors.ENDC}\n")
@@ -54,10 +57,10 @@ def compile(Part: str):
         print(f"{bcolors.HEADER}compiling Server-Core...\n{bcolors.BOLD}")
         SC = os.getcwd()
         os.chdir("src/Server")
-        os.system("dub")
+        os.system("dub build --force")
         os.chdir(SC)
-        print(bcolors.ENDC,end="")
-        if os.path.exists(f"src/Dpart/{ServerCore}"):
+        print(bcolors.ENDC, end="")
+        if os.path.exists(f"src/Server/{ServerCore}"):
             print(
                 f"{bcolors.OKGREEN}---compiled Server-Core succesfuly!---{bcolors.ENDC}\n")
         else:
@@ -75,7 +78,7 @@ def compile(Part: str):
                 f"{bcolors.FAIL} Compilation failed... (press enter to quit){bcolors.ENDC}")
             exit()
     else:
-        print("Valids args for compile are Engine, Dpart, Dserver", Part)
+        print("Valids args for compile are Engine, Dpart, Dserver; Not: ", Part)
 
 
 def link(arg):
@@ -93,6 +96,7 @@ def link(arg):
 
 def build(arg):
     compile("Dpart")
+    compile("Dserver")
     compile("Engine")
     link("all")
     print("I wish you the Best to run...")
@@ -131,22 +135,28 @@ def test():
 tasks = {
     # taskname    taskfunc  Task Description
     "build-dep": F(BuildDeps, "Build Dependancys"),
-    "compile": F(compile, "Compile Dpart or Engine"),
+    "compile": F(compile, "Compile Dpart, Dserver or Engine"),
     "init": F(init, "initialise dirs (only work on Unix for now)"),
-    "link": F(link, "Link All Obj togehter"),
+    "link": F(link, "Link All Obj together"),
     "build": F(build, "Compile ALL+Link+Clean"),
     "run": F(run, "run game (configure in cfg.py)"),
     "clean": F(clean, "Remove temporary file"),
-    "test": F(test, "Build+Run")
-    # "deploy":F(deploy,"Deploy App With version")
+    "test": F(test, "Build+Run"),
+    "deploy":F(deploy,"Deploy App With version (not implemented YET)")
 }
 
 
 def ExecTask(taskname="help"):
-    if taskname == "compile":
-        tasks.get(taskname).run(sys.argv[2])
-    tasks.get(taskname).run()
-
+    if taskname == "compile" or taskname=="test":
+        try:
+            tasks.get(taskname).run(sys.argv[2])
+        except :
+            print("Compile take a switch!")
+    else:
+        try:
+            tasks.get(taskname).run()
+        except:
+            tasks.get(taskname).run()
 
 if __name__ == "__main__":
     import sys
