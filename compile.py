@@ -17,7 +17,6 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-
 def init():
     os.system(
         f"mkdir Env;mkdir Env/objects;mkdir Env/prod;mkdir Env/prod/OSX;mkdir Env/prod/Win64;mkdir Env/prod/Linux;mkdir Env/prod/{OS}/object;")
@@ -26,14 +25,15 @@ def init():
 def clean():
     print("\ncleaning Workspace")
     shutil.rmtree("src/Dpart/.dub")
-    shutil.copyfile("src/Dpart/libquarp.a", f"Env/prod/{OS}/object/libquarp.a")
-    os.remove("src/Dpart/libquarp.a")
+    shutil.copyfile(f"src/Dpart/{Libquarp}", f"Env/prod/{OS}/object/{Libquarp}")
+    os.remove(f"src/Dpart/{Libquarp}")
 
 
 def compile():
     print(f"{bcolors.HEADER}compiling Dpart...\n{bcolors.ENDC}")
-    os.system("cd src/Dpart;dub")
-    if os.path.exists(f"src/Dpart/libquarp.a"):
+    os.system("cd src/Dpart")
+    os.system("dub")
+    if os.path.exists(f"src/Dpart/{Libquarp}"):
         print(f"{bcolors.OKGREEN}---compiled Dpart succesfuly!---{bcolors.ENDC}\n")
     else:
         input(
@@ -54,7 +54,7 @@ def link():
     os.system(f"g++ Env/prod/{OS}/object/*  -o {Pathtoexe}")
     
     if os.path.exists(Pathtoexe):
-        print(f"{bcolors.OKGREEN}---compiled Linking succesfuly!---{bcolors.ENDC}")
+        print(f"{bcolors.OKGREEN}--- Linking succesfuly!---{bcolors.ENDC}")
     else:
         input(
             f"{bcolors.FAIL} linking failed... (press enter to quit){bcolors.ENDC}")
@@ -64,6 +64,7 @@ def link():
 def build():
     compile()
     link()
+    print("I wish you the Best to run...")
 
 
 class F:
@@ -82,6 +83,14 @@ def deploy():
 def run():
     os.system(runcommand)
 
+def BuildDeps():
+    if OS==OSX:
+        os.system(f"""cd {SDLPath};./configure;make;sudo make install""")
+    elif OS==Win64:
+        os.ch
+        os.system(f"make {SDLPath}")
+
+
 
 def test():
     build()
@@ -90,6 +99,7 @@ def test():
 
 tasks = {
     # taskname    taskfunc  Task Description
+    "build-dep":F(BuildDeps,"Build Dependancys"),
     "compile": F(compile, "Compile Dpart and Engine"),
     "init": F(init, "initialise dirs (only work on Unix for now)"),
     "link": F(link, "Link All Obj togehter"),
@@ -99,7 +109,6 @@ tasks = {
     "test": F(test, "Build+Run")
     # "deploy":F(deploy,"Deploy App With version")
 }
-
 
 def ExecTask(taskname="help"):
     tasks.get(taskname).run()
@@ -115,7 +124,8 @@ if __name__ == "__main__":
             print(f"    {bcolors.OKCYAN}{i}{bcolors.ENDC}", (9-len(i))*" ", f"{bcolors.OKGREEN}{tasks.get(i).desc}{bcolors.ENDC}")
 
         print()
-        print(f"usage: python3 [APP] [Task]")
+        print(f"usage: python3 [APP] [Task]\n")
         if Debug:
-
+            print("-----------Debug-----------")
+            print("Last path = "+os.getcwd())
             print(f"{bcolors.FAIL}REACT: {e}{bcolors.ENDC}")

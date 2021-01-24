@@ -6,6 +6,12 @@
 Win64="Win64"
 Linux="Linux"
 OSX="OSX"
+#Engine Dependancy
+Libquarp="libquarp.a"
+SDLVersion="2-2.0.14"
+SDLPath="Deps/Sdl-"
+#Engine 
+
 
 OS=OSX
 Debug=True
