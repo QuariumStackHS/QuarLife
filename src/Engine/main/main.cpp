@@ -16,6 +16,11 @@ void Initialize(){
     else{
         std::cout<<"Error SDL Could not be Initialized"<<std::endl;
     }
+    SDL_Window *screen = SDL_CreateWindow("My Game Window",
+                          SDL_WINDOWPOS_UNDEFINED,
+                          SDL_WINDOWPOS_UNDEFINED,
+                          640, 480,
+                          SDL_WINDOW_FULLSCREEN | SDL_WINDOW_OPENGL);
     //SDL_SetVideoMode(1920, 1080, 0);
 
 

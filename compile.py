@@ -24,28 +24,20 @@ def init(arg):
 
 
 def clean(arg):
-    try:
-        print("\ncleaning Workspace")
-        shutil.rmtree("src/Dpart/.dub")
-        shutil.copyfile(f"src/Dpart/{Libquarp}",
-                        f"Env/prod/{OS}/object/{Libquarp}")
-        os.remove(f"src/Dpart/{Libquarp}")
+    print("\ncleaning Workspace")
+    shutil.rmtree("src/Dpart/.dub")
+    shutil.copyfile(f"src/Dpart/{Libquarp}",
+                    f"Env/prod/{OS}/object/{Libquarp}")
+    os.remove(f"src/Dpart/{Libquarp}")
 
-        shutil.rmtree("src/Server/.dub")
-        shutil.copyfile(f"src/Server/{ServerCore}",
-                        f"Env/prod/{OS}/{ServerCore}")
-        os.remove(f"src/Server/{ServerCore}")
-    except:
-        pass
 
 def compile(Part: str):
     if Part == "Dpart":
-        print(f"{bcolors.HEADER}compiling Dpart...\n{bcolors.BOLD}")
+        print(f"{bcolors.HEADER}compiling Dpart...\n{bcolors.ENDC}")
         SC = os.getcwd()
         os.chdir("src/Dpart")
         os.system("dub")
         os.chdir(SC)
-        print(bcolors.ENDC, end="")
         if os.path.exists(f"src/Dpart/{Libquarp}"):
             print(
                 f"{bcolors.OKGREEN}---compiled Dpart succesfuly!---{bcolors.ENDC}\n")
@@ -53,22 +45,9 @@ def compile(Part: str):
             input(
                 f"{bcolors.FAIL} Compilation failed... (press enter to quit){bcolors.ENDC}")
             exit()
-    if Part == "Dserver":
-        print(f"{bcolors.HEADER}compiling Server-Core...\n{bcolors.BOLD}")
-        SC = os.getcwd()
-        os.chdir("src/Server")
-        os.system("dub build --force")
-        os.chdir(SC)
-        print(bcolors.ENDC, end="")
-        if os.path.exists(f"src/Server/{ServerCore}"):
-            print(
-                f"{bcolors.OKGREEN}---compiled Server-Core succesfuly!---{bcolors.ENDC}\n")
-        else:
-            input(
-                f"{bcolors.FAIL} Compilation failed... (press enter to quit){bcolors.ENDC}")
-            exit()
+
     elif Part == "Engine":
-        print(f"{bcolors.HEADER}compiling Engine...\n{bcolors.BOLD}")
+        print(f"{bcolors.HEADER}compiling Engine...\n{bcolors.ENDC}")
         os.system(
             f"g++ -Isrc/Engine/main/Includes -Isrc/Dpart/Headers -I{SDLFullPath}/include -pthread src/Engine/main/main.cpp -c -o Env/prod/{OS}/object/Engine.o")
         if os.path.exists(f"Env/prod/{OS}/object/Engine.o"):
@@ -78,7 +57,7 @@ def compile(Part: str):
                 f"{bcolors.FAIL} Compilation failed... (press enter to quit){bcolors.ENDC}")
             exit()
     else:
-        print("Valids args for compile are Engine, Dpart, Dserver; Not: ", Part)
+        print("Valids args for compile are Engine, Dpart", Part)
 
 
 def link(arg):
@@ -94,9 +73,8 @@ def link(arg):
     clean("")
 
 
-def build(t=""):
+def build(arg):
     compile("Dpart")
-    compile("Dserver")
     compile("Engine")
     link("all")
     print("I wish you the Best to run...")
@@ -115,7 +93,7 @@ def deploy(arg):
     pass
 
 
-def run(t=""):
+def run(arg):
     os.system(runcommand)
 
 
@@ -127,7 +105,7 @@ def BuildDeps(N):
         os.system(f"make {SDLFullPath}")
 
 
-def test(t=""):
+def test(t):
     build()
     run()
 
@@ -135,28 +113,22 @@ def test(t=""):
 tasks = {
     # taskname    taskfunc  Task Description
     "build-dep": F(BuildDeps, "Build Dependancys"),
-    "compile": F(compile, "Compile Dpart, Dserver or Engine"),
+    "compile": F(compile, "Compile Dpart or Engine"),
     "init": F(init, "initialise dirs (only work on Unix for now)"),
-    "link": F(link, "Link All Obj together"),
+    "link": F(link, "Link All Obj togehter"),
     "build": F(build, "Compile ALL+Link+Clean"),
     "run": F(run, "run game (configure in cfg.py)"),
     "clean": F(clean, "Remove temporary file"),
-    "test": F(test, "Build+Run"),
-    "deploy":F(deploy,"Deploy App With version (not implemented YET)")
+    "test": F(test, "Build+Run")
+    # "deploy":F(deploy,"Deploy App With version")
 }
 
 
 def ExecTask(taskname="help"):
     if taskname == "compile":
-        try:
-            tasks.get(taskname).run(sys.argv[2])
-        except :
-            print("Compile take a switch!")
-    else:
-        try:
-            tasks.get(taskname).run()
-        except:
-            tasks.get(taskname).run()
+        tasks.get(taskname).run(sys.argv[2])
+    tasks.get(taskname).run()
+
 
 if __name__ == "__main__":
     import sys
