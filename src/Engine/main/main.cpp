@@ -1,6 +1,5 @@
 
-#include <SDL/SDL.h>
-#include <iostream>
+
 //using namespace std;
 //#pragma startup Initialize
 //#pragma exit Post
@@ -15,7 +14,7 @@ void Initialize(){
     else{
         std::cout<<"Error SDL Could not be Initialized"<<std::endl;
     }
-    SDL_SetVideoMode(1920, 1080, 0,SDL_DOUBLEBUF|SDL_FULLSCREEN);
+    //SDL_SetVideoMode(1920, 1080, 0);
 
 
 }

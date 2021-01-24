@@ -13,6 +13,7 @@ quarp-test-*
 *.o
 *.obj
 *.lst
+Deps/**
 # Compiled Object files
 *.slo
 *.lo

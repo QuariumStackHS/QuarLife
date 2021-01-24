@@ -21,6 +21,7 @@
 			"path": "prod"
 		}
 	],
+
 	"settings": {
 		  
 		"files.autoSave": "afterDelay",
@@ -32,11 +33,6 @@
 			"Env/prod":true,
 			"workspace.code-workspace":false,
 	
-		},
-		"[cpp]": {
-			"editor.wordBasedSuggestions": true,
-			"editor.suggest.insertMode": "replace",
-			"editor.semanticHighlighting.enabled": true
 		},
 	},
 	"extensions": {
