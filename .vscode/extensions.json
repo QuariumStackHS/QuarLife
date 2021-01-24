@@ -4,6 +4,8 @@
         "equinusocio.vsc-material-theme-icons",
         "equinusocio.vsc-community-material-theme",
         "zhuangtongfa.material-theme",
-        "vscode-icons-team.vscode-icons"
+        "vscode-icons-team.vscode-icons",
+        "oderwat.indent-rainbow",
+        "2gua.rainbow-brackets"
     ]
 }
