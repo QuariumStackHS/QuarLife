@@ -1,0 +1,12 @@
+{
+	"authors": [
+		"Christopher Clement"
+	],
+	"copyright": "Copyright © 2021, Christopher Clement",
+	"description": "server core for Game instance",
+	"license": "proprietary",
+	"name": "dserver",
+    "dependencies": {
+	          "quarp": { "path": "../Dpart" }
+     }
+}

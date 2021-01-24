@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/dserver
+dserver.so
+dserver.dylib
+dserver.dll
+dserver.a
+dserver.lib
+dserver-test-*
+*.exe
+*.o
+*.obj
+*.lst

@@ -1,6 +1,6 @@
 #include "include/SDL.h"
 #include <iostream>
-sdf
+
 //using namespace std;v
 //#pragma startup Initialize
 //#pragma exit Post
@@ -8,6 +8,7 @@ void Post(){
     std::cout<<"SDL Quit"<<std::endl;
     SDL_Quit();
 }
+//initialise Engine
 void Initialize(){
     if (SDL_Init(SDL_INIT_EVERYTHING)==0){
         std::cout<<"SDL Initialized"<<std::endl;

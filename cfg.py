@@ -8,13 +8,15 @@ Linux="Linux"
 OSX="OSX"
 #Engine Dependancy
 Libquarp="libquarp.a"
+ServerCore="dserver"
+
 SDLVersion="2-2.0.14"
 SDLPath="Deps/SDL"
 SDLFullPath=SDLPath+SDLVersion
 #Engine 
 
-
 OS=OSX
+
 Debug=True
 if OS==OSX:
     Pathtoexe=f"Env/prod/{OS}/main.app/Contents/MacOS/Game"

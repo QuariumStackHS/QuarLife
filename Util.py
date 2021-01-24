@@ -5,7 +5,6 @@ import shutil
 # create object dir
 from cfg import *
 
-
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -29,6 +28,11 @@ def clean(arg):
     shutil.copyfile(f"src/Dpart/{Libquarp}",
                     f"Env/prod/{OS}/object/{Libquarp}")
     os.remove(f"src/Dpart/{Libquarp}")
+    
+    shutil.rmtree("src/Server/.dub")
+    shutil.copyfile(f"src/Server/{ServerCore}",
+                    f"Env/prod/{OS}/{ServerCore}")
+    os.remove(f"src/Dpart/{ServerCore}")
 
 
 def compile(Part: str):
@@ -46,7 +50,20 @@ def compile(Part: str):
             input(
                 f"{bcolors.FAIL} Compilation failed... (press enter to quit){bcolors.ENDC}")
             exit()
-
+    if Part == "Dserver":
+        print(f"{bcolors.HEADER}compiling Server-Core...\n{bcolors.BOLD}")
+        SC = os.getcwd()
+        os.chdir("src/Server")
+        os.system("dub")
+        os.chdir(SC)
+        print(bcolors.ENDC,end="")
+        if os.path.exists(f"src/Dpart/{ServerCore}"):
+            print(
+                f"{bcolors.OKGREEN}---compiled Server-Core succesfuly!---{bcolors.ENDC}\n")
+        else:
+            input(
+                f"{bcolors.FAIL} Compilation failed... (press enter to quit){bcolors.ENDC}")
+            exit()
     elif Part == "Engine":
         print(f"{bcolors.HEADER}compiling Engine...\n{bcolors.BOLD}")
         os.system(
@@ -58,7 +75,7 @@ def compile(Part: str):
                 f"{bcolors.FAIL} Compilation failed... (press enter to quit){bcolors.ENDC}")
             exit()
     else:
-        print("Valids args for compile are Engine, Dpart", Part)
+        print("Valids args for compile are Engine, Dpart, Dserver", Part)
 
 
 def link(arg):
