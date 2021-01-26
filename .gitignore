@@ -1,4 +1,6 @@
 .dub
+Deps/
+src/Engine/main/Includes/include/
 docs.json
 __dummy.html
 docs/
