@@ -2,6 +2,8 @@
 import os
 import time
 import shutil
+import subprocess
+
 # create object dir
 from cfg import *
 
@@ -92,7 +94,10 @@ def link(arg):
         input(
             f"{bcolors.FAIL} linking failed... (press enter to quit){bcolors.ENDC}")
     clean("")
-
+def start_WebApp(arg):
+    output = subprocess.Popen(["sudo","python3", "src/WEB/app.py"], stdout=subprocess.PIPE).communicate()
+    print(output[0].decode())
+    #os.system("python3 src/WEB/app.py")
 
 def build(t=""):
     compile("Dpart")
@@ -142,6 +147,7 @@ tasks = {
     "run": F(run, "run game (configure in cfg.py)"),
     "clean": F(clean, "Remove temporary file"),
     "test": F(test, "Build+Run"),
+    "Start_Web":F(start_WebApp,"run app.py in the terminal"),
     "deploy":F(deploy,"Deploy App With version (not implemented YET)")
 }
 

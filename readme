@@ -1,8 +1,18 @@
-1: game engine:
+1: game engine(Quarium Engine, C++):
     display texture at coords
     *abstract handle user input
-    
-    https://libsdl.org/download-1.2.php
-    https://www.libsdl.org/release/SDL-1.2.15/docs/
-2: game LIB (quarp):
+    manage forms
+
+
+    docs:
+        https://libsdl.org/download-1.2.php
+        https://www.libsdl.org/release/SDL-1.2.15/docs/
+        https://wiki.libsdl.org/MigrationGuide
+2 Game Server (Server Core, D):
+    Server for hosting, use the Game Lib 
+
+3: game LIB (quarp,D ):
     contain code for the Game (Registry blocks items entity)
+    it is us by the server and the Game engine
+
+#Please if you are Developing for one of those components, document your code
