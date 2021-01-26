@@ -1,8 +1,12 @@
 .dub
+#SDL2 please download from SDL themself
 Deps/
 src/Engine/main/Includes/include/
+
+#libquarp
 docs.json
 __dummy.html
+cfg.py #should never be on Github (bc its your cfg File)
 docs/
 /quarp
 quarp.so
@@ -15,7 +19,15 @@ quarp-test-*
 *.o
 *.obj
 *.lst
-Deps/**
+#Server Core
+/dserver
+dserver.so
+dserver.dylib
+dserver.dll
+dserver.a
+dserver.lib
+dserver-test-*
+
 # Compiled Object files
 *.slo
 *.lo

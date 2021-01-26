@@ -8,8 +8,10 @@
 class GameEngine
 {
 public:
-    void *operator new(size_t size){
-        std::cout<<"New Quarium Engine Initialised"<<std::endl;
+    void *operator new(size_t size)
+    {
+
+        std::cout << "New Quarium Engine Initialised" << std::endl;
     }
     int newIns()
     {
@@ -17,12 +19,14 @@ public:
         return 0;
     }
     // main func of Engine, Run the Game with libs in Quarp
-    int main(){
-    Initialize();
-    std::cout << "Main" << std::endl;
-    Post();
-    return 0;
+    int main()
+    {
+        Initialize();
+        std::cout << "Main" << std::endl;
+        Post();
+        return 0;
     }
+
 private:
     void Post()
     {

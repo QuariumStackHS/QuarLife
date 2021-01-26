@@ -9,9 +9,11 @@
         https://www.libsdl.org/release/SDL-1.2.15/docs/
         https://wiki.libsdl.org/MigrationGuide
 2 Game Server (Server Core, D):
+    https://dlang.org/spec/cpp_interface.html
     Server for hosting, use the Game Lib 
 
 3: game LIB (quarp,D ):
+    https://dlang.org/spec/cpp_interface.html
     contain code for the Game (Registry blocks items entity)
     it is us by the server and the Game engine
 
