@@ -17,4 +17,8 @@
     contain code for the Game (Registry blocks items entity)
     it is us by the server and the Game engine
 
+cpp Util reference:
+    https://www.geeksforgeeks.org/overloading-new-delete-operator-c/
+
+
 #Please if you are Developing for one of those components, document your code
