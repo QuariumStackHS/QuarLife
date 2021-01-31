@@ -9,10 +9,6 @@
 			"path": "../src/Engine/main"
 		},
 		{
-			"name": "Game Lib (SRC, D)",
-			"path": "../src/Dpart"
-		},
-		{
 			"name": "Server Core (SRC, D)",
 			"path": "../src/Server"
 		},

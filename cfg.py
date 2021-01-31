@@ -13,6 +13,8 @@ SDLPath="Deps/SDL"
 SDLFullPath=SDLPath+SDLVersion
 
 Libquarp="libquarp.a"
+
+
 #ServerCore 
 ServerCore="dserver"
 
@@ -24,6 +26,7 @@ OS=OSX
 Debug=True
 if OS==OSX:
     Pathtoexe=f"Env/prod/{OS}/main.app/Contents/MacOS/Game"
+    
 elif OS==Win64:
     
     Pathtoexe=f"Env/prod/{OS}/Game.exe"
@@ -32,5 +35,6 @@ elif OS==Linux:
 else:
     Pathtoexe="None"
     print(f"{OS} is not supported")
+outputpath=f"Env/prod/{OS}/objects/mods"
 runcommand=f"./{Pathtoexe}"
 

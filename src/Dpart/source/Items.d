@@ -1,6 +1,0 @@
-module quarp;
-
-class Item {
-    
-
-}

@@ -8,6 +8,25 @@ import subprocess
 from cfg import *
 
 
+def getListOfFiles(dirName):
+    # create a list of file and sub directories
+    # names in the given directory
+    listOfFile = os.listdir(dirName)
+    allFiles = list()
+    # Iterate over all the entries
+    for entry in listOfFile:
+        # Create full path
+        fullPath = os.path.join(dirName, entry)
+        # If entry is a directory then get the list of files in this directory
+        if os.path.isdir(fullPath):
+            allFiles = allFiles + getListOfFiles(fullPath)
+        else:
+            allFiles.append(fullPath)
+
+    return allFiles
+# print(getListOfFiles("."))
+
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -40,26 +59,44 @@ def clean(arg):
     except:
         pass
 
+
 def compile(Part: str):
-    if Part == "Dpart":
-        print(f"{bcolors.HEADER}compiling Dpart...\n{bcolors.BOLD}")
-        SC = os.getcwd()
-        os.chdir("src/Dpart")
-        os.system("dub")
-        os.chdir(SC)
-        print(bcolors.ENDC, end="")
-        if os.path.exists(f"src/Dpart/{Libquarp}"):
-            print(
-                f"{bcolors.OKGREEN}---compiled Dpart succesfuly!---{bcolors.ENDC}\n")
-        else:
-            input(
-                f"{bcolors.FAIL} Compilation failed... (press enter to quit){bcolors.ENDC}")
-            exit()
-    if Part == "Dserver":
+    if Part == "Mods":
+        print(f"{bcolors.HEADER}compiling Mods... {bcolors.BOLD}")
+        SC2 = os.getcwd()
+        os.chdir("src/Engine/main/mods/source")
+        mods = []
+        for i in os.listdir("."):
+            if os.path.isdir(i):
+                mods.append(i)
+        for l in mods:
+            SC = os.getcwd()
+            # print(f"{SC}/{l}")
+            os.chdir(f"{SC}/{l}")
+            # print(l)
+            k = getListOfFiles(".")
+            #print(k)
+            os.chdir(SC)
+            for i in k:
+                #print("compiling: ", i)
+                if i.endswith(".cpp"):
+                    #print("CD: ", os.getcwd())
+                    print(f"{bcolors.HEADER}compiling: {bcolors.BOLD}", i[2:len(i)],)
+                    os.system(
+                        f"g++ -c {SC+('/'+l+'/')+i[2:len(i)]} -pthread -Isrc/Engine/main/Includes -o {(SC2+'/'+outputpath+'/'+(i.split('/')[-1]).replace('.','_'))}.o")
+                    if os.path.exists(f"{(SC2+'/'+outputpath+'/'+(i.split('/')[-1]).replace('.','_'))}.o"):
+                        print(
+                            f"{bcolors.OKGREEN}---compiled '{l+' -> '+(i[2:len(i)])}' succesfuly!---{bcolors.ENDC}\n")
+                    else:
+                        input(
+                            f"{bcolors.FAIL} Compilation failed in '{i}''... (press enter to quit){bcolors.ENDC}")
+
+    if Part == "server":
         print(f"{bcolors.HEADER}compiling Server-Core...\n{bcolors.BOLD}")
         SC = os.getcwd()
         os.chdir("src/Server")
-        os.system("dub build --force")
+        os.system(
+            f"g++ -Isrc/Engine/main/Includes -Isrc/Dpart/Headers -pthread src/Server/source/main.cpp -c -o Env/prod/{OS}/objects/ServerSide.o")
         os.chdir(SC)
         print(bcolors.ENDC, end="")
         if os.path.exists(f"src/Server/{ServerCore}"):
@@ -72,21 +109,22 @@ def compile(Part: str):
     elif Part == "Engine":
         print(f"{bcolors.HEADER}compiling Engine...\n{bcolors.BOLD}")
         os.system(
-            f"g++ -Isrc/Engine/main/Includes -Isrc/Dpart/Headers -I{SDLFullPath}/include -pthread src/Engine/main/main.cpp -c -o Env/prod/{OS}/object/Engine.o")
-        if os.path.exists(f"Env/prod/{OS}/object/Engine.o"):
+            f"g++ -Isrc/Engine/main/Includes -std=c++17 -Isrc/Dpart/Headers -Isrc/Dpart/source -I{SDLFullPath}/include -pthread src/Engine/main/main.cpp -c -o Env/prod/{OS}/objects/Engine/Engine.o")
+        if os.path.exists(f"Env/prod/{OS}/objects/Engine.o"):
             print(f"{bcolors.OKGREEN}---compiled Engine succesfuly!---{bcolors.ENDC}")
         else:
             input(
                 f"{bcolors.FAIL} Compilation failed... (press enter to quit){bcolors.ENDC}")
             exit()
     else:
-        print("Valids args for compile are Engine, Dpart, Dserver; Not: ", Part)
+        print("Valids args for compile are Engine, QuarP, server, Mods; Not: ", Part)
 
 
 def link(arg):
     print(f"{bcolors.HEADER}Linking All together...\n{bcolors.ENDC}")
 
-    os.system(f"g++ Env/prod/{OS}/object/*  -o {Pathtoexe}")
+    os.system(
+        f"g++ Env/prod/{OS}/objects/Engine/* Env/prod/{OS}/objects/mods/*.o -pthread -o {Pathtoexe}")
 
     if os.path.exists(Pathtoexe):
         print(f"{bcolors.OKGREEN}--- Linking succesfuly!---{bcolors.ENDC}")
@@ -94,10 +132,20 @@ def link(arg):
         input(
             f"{bcolors.FAIL} linking failed... (press enter to quit){bcolors.ENDC}")
     clean("")
+
+
 def start_WebApp(arg):
-    output = subprocess.Popen(["sudo","python3", "src/WEB/app.py"], stdout=subprocess.PIPE).communicate()
+    output = subprocess.Popen(
+        ["sudo", "python3", "src/WEB/app.py"], stdout=subprocess.PIPE).communicate()
     print(output[0].decode())
     #os.system("python3 src/WEB/app.py")
+
+
+class component:
+    def __init__(self, path, compilecommand):
+        self.path = path
+        self.command = compilecommand
+
 
 def build(t=""):
     compile("Dpart")
@@ -147,8 +195,8 @@ tasks = {
     "run": F(run, "run game (configure in cfg.py)"),
     "clean": F(clean, "Remove temporary file"),
     "test": F(test, "Build+Run"),
-    "Start_Web":F(start_WebApp,"run app.py in the terminal"),
-    "deploy":F(deploy,"Deploy App With version (not implemented YET)")
+    "Start_Web": F(start_WebApp, "run app.py in the terminal"),
+    "deploy": F(deploy, "Deploy App With version (not implemented YET)")
 }
 
 
@@ -156,13 +204,14 @@ def ExecTask(taskname="help"):
     if taskname == "compile":
         try:
             tasks.get(taskname).run(sys.argv[2])
-        except :
+        except:
             print("Compile take a switch!")
     else:
         try:
             tasks.get(taskname).run()
         except:
-            tasks.get(taskname).run()
+            pass
+
 
 if __name__ == "__main__":
     import sys
@@ -170,8 +219,12 @@ if __name__ == "__main__":
         ExecTask(sys.argv[1])
     except Exception as e:
         print(f"{bcolors.FAIL}List of available Tasks: {bcolors.ENDC}({bcolors.OKBLUE}{str(len(tasks))}{bcolors.ENDC}):")
+        maxs = 0
         for i in tasks:
-            print(f"    {bcolors.OKCYAN}{i}{bcolors.ENDC}", (9-len(i))
+            if maxs < len(i):
+                maxs = len(i)
+        for i in tasks:
+            print(f"    {bcolors.OKCYAN}{i}{bcolors.ENDC}", (maxs-len(i))
                   * " ", f"{bcolors.OKGREEN}{tasks.get(i).desc}{bcolors.ENDC}")
 
         print()
