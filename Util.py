@@ -80,16 +80,17 @@ def compile(Part: str):
             for i in k:
                 #print("compiling: ", i)
                 if i.endswith(".cpp"):
-                    #print("CD: ", os.getcwd())
+                    print("CD: ", os.getcwd())
                     print(f"{bcolors.HEADER}compiling: {bcolors.BOLD}", i[2:len(i)],)
                     os.system(
-                        f"g++ -c {SC+('/'+l+'/')+i[2:len(i)]} -pthread -Isrc/Engine/main/Includes -o {(SC2+'/'+outputpath+'/'+(i.split('/')[-1]).replace('.','_'))}.o")
-                    if os.path.exists(f"{(SC2+'/'+outputpath+'/'+(i.split('/')[-1]).replace('.','_'))}.o"):
+                        f"g++ -c {SC+('/'+l+'/')+i[2:len(i)]} -pthread -I{SC2}/src/Engine/main/Includes -o {(SC2+'/'+outputpath+'/'+l+'_'+(i.split('/')[-1]).replace('.','_'))}.o")
+                    if os.path.exists(f"{(SC2+'/'+outputpath+'/'+l+'_'+(i.split('/')[-1]).replace('.','_'))}.o"):
                         print(
                             f"{bcolors.OKGREEN}---compiled '{l+' -> '+(i[2:len(i)])}' succesfuly!---{bcolors.ENDC}\n")
                     else:
                         input(
                             f"{bcolors.FAIL} Compilation failed in '{i}''... (press enter to quit){bcolors.ENDC}")
+        os.chdir(SC2)
 
     if Part == "server":
         print(f"{bcolors.HEADER}compiling Server-Core...\n{bcolors.BOLD}")
@@ -110,7 +111,7 @@ def compile(Part: str):
         print(f"{bcolors.HEADER}compiling Engine...\n{bcolors.BOLD}")
         os.system(
             f"g++ -Isrc/Engine/main/Includes -std=c++17 -Isrc/Dpart/Headers -Isrc/Dpart/source -I{SDLFullPath}/include -pthread src/Engine/main/main.cpp -c -o Env/prod/{OS}/objects/Engine/Engine.o")
-        if os.path.exists(f"Env/prod/{OS}/objects/Engine.o"):
+        if os.path.exists(f"Env/prod/{OS}/objects/Engine/Engine.o"):
             print(f"{bcolors.OKGREEN}---compiled Engine succesfuly!---{bcolors.ENDC}")
         else:
             input(
@@ -148,9 +149,10 @@ class component:
 
 
 def build(t=""):
-    compile("Dpart")
-    compile("Dserver")
+    compile("Mods")
+    #compile("Dserver")
     compile("Engine")
+    #compile("Mods")
     link("all")
     print("I wish you the Best to run...")
 

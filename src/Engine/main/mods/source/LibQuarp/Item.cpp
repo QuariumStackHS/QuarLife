@@ -1,5 +1,6 @@
-#include "Common/Item.h"
-
+#include "mods/LibQuarp/Item.h"
+#include "include/SDL.h"
+#include "include/SDL_image.h"
 Item::Item(){
 
 }

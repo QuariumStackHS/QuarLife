@@ -5,15 +5,19 @@
 
 
     docs:
+        useful but not effective
         https://libsdl.org/download-1.2.php
-        https://www.libsdl.org/release/SDL-1.2.15/docs/
-        https://wiki.libsdl.org/MigrationGuide
+        SDL util:
+            https://www.libsdl.org/release/SDL-1.2.15/docs/
+            https://wiki.libsdl.org/MigrationGuide
+        MariaDB:
+            https://www.postgresql.org/docs/13/tutorial-start.html
+            https://mariadb.com/kb/en/documentation/
+            https://mariadb.com/kb/en/connectors/
 2 Game Server (Server Core, D):
-    https://dlang.org/spec/cpp_interface.html
     Server for hosting, use the Game Lib 
 
-3: game LIB (quarp,D ):
-    https://dlang.org/spec/cpp_interface.html
+3: game LIB (quarp,C++ ):
     contain code for the Game (Registry blocks items entity)
     it is us by the server and the Game engine
 
