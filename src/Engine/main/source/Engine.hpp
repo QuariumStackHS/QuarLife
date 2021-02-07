@@ -54,7 +54,7 @@ private:
         SDL_Texture *newTexture = NULL;
 
         //Load image at specified path
-        SDL_Surface *loadedSurface = IMG_Load(strcat(ResourcePath,path.c_str());
+        SDL_Surface *loadedSurface = IMG_Load(strcat(ResourcePath,path.c_str()));
         if (loadedSurface == NULL)
         {
             printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());

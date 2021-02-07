@@ -16,6 +16,7 @@
             https://mariadb.com/kb/en/connectors/
 2 Game Server (Server Core, D):
     Server for hosting, use the Game Lib 
+    https://www.postgresql.org/docs/12/admin.html
 
 3: game LIB (quarp,C++ ):
     contain code for the Game (Registry blocks items entity)

@@ -83,7 +83,7 @@ def compile(Part: str):
                     print("CD: ", os.getcwd())
                     print(f"{bcolors.HEADER}compiling: {bcolors.BOLD}", i[2:len(i)],)
                     os.system(
-                        f"g++ -c {SC+('/'+l+'/')+i[2:len(i)]} -pthread -I{SC2}/src/Engine/main/Includes -o {(SC2+'/'+outputpath+'/'+l+'_'+(i.split('/')[-1]).replace('.','_'))}.o")
+                        f"g++ -c {SC+('/'+l+'/')+i[2:len(i)]} -pthread -I{SC2}/src/Engine/main/Includes -I{SC2}/Deps/libpqxx/include/pqxx -o {(SC2+'/'+outputpath+'/'+l+'_'+(i.split('/')[-1]).replace('.','_'))}.o")
                     if os.path.exists(f"{(SC2+'/'+outputpath+'/'+l+'_'+(i.split('/')[-1]).replace('.','_'))}.o"):
                         print(
                             f"{bcolors.OKGREEN}---compiled '{l+' -> '+(i[2:len(i)])}' succesfuly!---{bcolors.ENDC}\n")
@@ -185,7 +185,14 @@ def BuildDeps(N):
 def test(t=""):
     build()
     run()
+def PostGresBuild(arg):
+    SC2=os.getcwd()
+    os.chdir(SC2+"/Deps/libpqxx")
+    os.system("./configure --with-postgres-include")
+    os.system("make ")
+    os.system("sudo make install")
 
+    pass
 
 tasks = {
     # taskname    taskfunc  Task Description
@@ -198,7 +205,8 @@ tasks = {
     "clean": F(clean, "Remove temporary file"),
     "test": F(test, "Build+Run"),
     "Start_Web": F(start_WebApp, "run app.py in the terminal"),
-    "deploy": F(deploy, "Deploy App With version (not implemented YET)")
+    "deploy": F(deploy, "Deploy App With version (not implemented YET)"),
+    "build-PostGresql":F(PostGresBuild,"Build post gres")
 }
 
 

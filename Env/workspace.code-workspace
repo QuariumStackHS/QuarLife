@@ -20,6 +20,8 @@
 			"name": "WEB (SRC, Python)",
 			"path": "../src/WEB"
 		}
+		{"name": "Backend (SQL Postgre)",
+		"path": "../src/PGSQL"}
 	],
 
 	"settings": {
